@@ -832,7 +832,6 @@ closeZcart.onclick = () => {
 
 
 
-
 // When Click add to cart, it adds
 // Grabbing all add to carts
 let add2cart = document.querySelectorAll(".add-cart");
@@ -916,6 +915,7 @@ function cartNumbers(product, action) {
 }
 
 //
+/*{
 function setItems(product) {
     //let addOneMore = document.getElementById('fa');
     let cartItems = localStorage.getItem('productsInCart');
@@ -929,8 +929,8 @@ function setItems(product) {
                 [product.tag]: product
             }
         }
-        // cartItems[product.tag].inCart += 1; //Increase one Thats already there
-        cartItems[product.tag].inCart = 1; //Increase one Thats already there
+         cartItems[product.tag].inCart += 1; //Increase one Thats already there
+        //cartItems[product.tag].inCart = 1; //Increase one Thats already there
     }
     else {
         product.inCart = 1;
@@ -946,11 +946,30 @@ function setItems(product) {
 
 
 
-
+/*
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
 }
-
-
+}*/
+function setItems(product) {
+    let cartItems = localStorage.getItem('productsInCart');
+    cartItems = JSON.parse(cartItems);
+  
+    if (cartItems !== null) {
+      if (cartItems[product.tag] !== undefined) {
+        cartItems[product.tag].inCart += 1;
+      } else {
+        cartItems[product.tag] = product;
+        cartItems[product.tag].inCart = 1;
+      }
+    } else {
+      product.inCart = 1;
+      cartItems = {
+        [product.tag]: product
+      };
+    }
+  
+    localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+  }
 
 
 
